@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="indexStyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Satisfy&family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>Jesse Brior</title>
+</head>
+<body>
+    <div class="top-nav" id="top-nav">
+        <div class="title-logo">
+            <a href="/index.html"><h1>jB</h1></a>
+        </div>
+        <div class="links">
+            <a href="/index.html">home</a>
+            <a href="/index.html#about-me">about</a>
+            <a href="/index.html#projects-container">projects</a>
+            <a href="/index.html#contact-container">contact</a>
+        </div>
+    </div>
+    <div class="welcome-content">
+        <h1>hello.</h1>
+        <p>my name is <strong>Jesse Brior</strong>,<br>i am a fullstack software developer student.</p>
+    </div>
+    <div class="about-me-container" id="about-me">
+        <div class="about-me-title">
+            <h1>about me</h1>
+        </div>
+        <div class="about-me-content">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et, numquam. Rerum voluptatum ad harum quae sapiente mollitia magnam modi numquam nobis aspernatur nisi commodi voluptatibus itaque dignissimos vero doloribus, repellat quas esse quam, pariatur maiores dicta repellendus magni! A animi, cupiditate voluptas autem quos culpa id ipsam aspernatur dolorum nulla.</p>
+        </div>
+    </div>
+    <div class="projects-container" id="projects-container">
+        <div class="projects-title">
+            <h1>projects</h1>
+        </div>
+        <div class="projects-content">
+            <div class="card" id="card-one">
+                <div class="details">
+                    <p>^</p>
+                </div>
+            </div>
+            <div class="card" id="card-two">
+                <div class="details">
+                    <p>^</p>
+                </div>
+            </div>
+            <div class="card" id="card-three">
+                <div class="details">
+                    <p>^</p>
+                </div>
+            </div>
+            <div class="card" id="card-four">
+                <div class="details">
+                    <p>^</p>
+                </div>
+            </div>
+            <div class="card" id="card-five">
+                <div class="details">
+                    <p>^</p>
+                </div>
+            </div>
+            <div class="card" id="card-six">
+                <div class="details">
+                    <p>^</p>
+                </div>
+            </div>
+        </div>
+        <div class="all-projectsBtn">
+            <a href="/all-projects.html"><button>View All Projects</button></a>
+        </div>
+    </div>
+    <div class="contact-container" id="contact-container">
+        <div class="contact-title">
+            <h1>contact me</h1>
+        </div>
+        <div class="submit-msg" id="submit-msg">
+            <p id="msg"></p>
+        </div>
+        <div class="contact-form">
+            <form class="contactForm">
+                <div>
+                    <input type="text" name="name" placeholder="Name*" required>
+                </div>
+                <div>
+                    <input type="text" name="email" placeholder="Email*" required>
+                </div>
+                <div>
+                    <input type="number" name="phoneNum" placeholder="Phone Number">
+                </div>
+                <div>
+                    <textarea name="comment" id="commentText" cols="30" rows="5" placeholder="Message*" required></textarea>
+                </div>
+                <div>
+                    <button type="submit" id="submitBtn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="btt-button">
+        <a href="#top-nav"><button>back to top</button></a>
+    </div>
+    <div class="footer-container">
+        <p id="footer-info">&#169 2023 Jesse Brior | Briors.com</p>
+    </div>
+    <script>
+        const formEl = document.querySelector('.contactForm');
+        formEl.addEventListener('submit', event => {
+            event.preventDefault();
+            const formData = new FormData(formEl);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phoneNum');
+            const comment = formData.get('comment');
+            $.ajax({
+                url: 'db-handler.php?name='+name+'&email='+email+'&phone='+phone+'&comm='+comment,
+                success: function(data) {
+                    console.log(data);
+                    const msg = String(data);
+                    if (msg == 'Success') {
+                        $("#submit-msg").css("display", "flex");
+                        $("#submit-msg").css("background-color", "#4fd376");
+                        $('#msg').html("Thank you for reaching out!");
+                        formEl.reset(); 
+                    } else {
+                        $("#submit-msg").css("display", "flex");
+                        $("#submit-msg").css("background-color", "#e95b5b");
+                        $('#msg').html("Uh-Oh...Something went wrong...");
+                        formEl.reset();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
